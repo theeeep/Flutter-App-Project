@@ -1,12 +1,19 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
 
 import '../utils/routes.dart';
 
-class LogInPage extends StatelessWidget {
+class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
 
+  @override
+  State<LogInPage> createState() => _LogInPageState();
+}
+
+class _LogInPageState extends State<LogInPage> {
+  String name = "";
+  bool changeButton = false;
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
@@ -27,7 +34,7 @@ class LogInPage extends StatelessWidget {
 
               // ignore: prefer_const_constructors
               Text(
-                "Welcome",
+                "Welcome $name",
                 // ignore: prefer_const_constructors
                 style: TextStyle(
                   fontSize: 28,
@@ -47,6 +54,10 @@ class LogInPage extends StatelessWidget {
                         hintText: "Enter User Name",
                         labelText: "User Name",
                       ),
+                      onChanged: (value) {
+                        name = value;
+                        setState(() {});
+                      },
                     ),
                     TextFormField(
                       obscureText: true,
@@ -58,13 +69,49 @@ class LogInPage extends StatelessWidget {
                     SizedBox(
                       height: 25.0,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
+
+                    InkWell(
+                      onTap: () async {
+                        setState(() {
+                          changeButton = true;
+                        });
+                        await Future.delayed(Duration(seconds: 2));
                         Navigator.pushNamed(context, MyRoute.homeRoute);
                       },
-                      style: TextButton.styleFrom(minimumSize: Size(120, 45)),
-                      child: Text("Log In"),
-                    )
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 2),
+                        width: changeButton ? 50 : 120,
+                        height: 50,
+                        alignment: Alignment.center,
+                        child: changeButton
+                            ? Icon(
+                                Icons.done,
+                                color: Colors.white,
+                              )
+                            : Text(
+                                "Log In",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          // shape: changeButton
+                          //     ? BoxShape.circle
+                          //     : BoxShape.rectangle,
+                          borderRadius:
+                              BorderRadius.circular(changeButton ? 50 : 10),
+                        ),
+                      ),
+                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, MyRoute.homeRoute);
+                    //   },
+                    //   style: TextButton.styleFrom(minimumSize: Size(120, 45)),
+                    //   child: Text("Log In"),
+                    // )
                   ],
                 ),
               )
