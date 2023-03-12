@@ -17,15 +17,15 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.light,
-      theme: ThemeData(primarySwatch: Colors.cyan),
+      theme: ThemeData(primarySwatch: Colors.pink),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.red,
         fontFamily: GoogleFonts.lato().fontFamily,
         // primaryTextTheme: GoogleFonts.latoTextTheme(),
       ),
-      // debugShowCheckedModeBanner: false,  //! To hide debug badge
-      initialRoute: "/",
+      debugShowCheckedModeBanner: false,  //! To hide debug badge
+      initialRoute: MyRoute.homeRoute,
       routes: {
         // "/": (context) => LogInPage(),
         "/": (context) => LogInPage(),
